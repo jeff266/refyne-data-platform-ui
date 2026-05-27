@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Search } from "lucide-react";
+import { C, F } from "@/lib/design-tokens";
 
 const mockCompanies = [
   {
@@ -64,81 +65,243 @@ export default function DatabasePage() {
   });
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Database</h1>
-        <p className="text-gray-400 mt-2">
-          Browse {mockCompanies.length.toLocaleString()} cached companies
+    <div style={{ padding: 24, maxWidth: 1200, margin: '0 auto' }}>
+      {/* Page Header */}
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{
+          fontSize: 20,
+          fontWeight: 600,
+          color: C.text,
+          marginBottom: 8,
+        }}>
+          Database
+        </h1>
+        <p style={{
+          fontSize: 13,
+          color: C.text2,
+        }}>
+          Browse cached companies
         </p>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500" />
+      {/* Filter Row */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        marginBottom: 14,
+      }}>
+        <div style={{ position: 'relative', flex: 1, maxWidth: 260 }}>
+          <Search style={{
+            position: 'absolute',
+            left: 9,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            fontSize: 14,
+            width: 14,
+            height: 14,
+            color: C.text3,
+            pointerEvents: 'none',
+          }} />
           <input
             type="text"
-            placeholder="Search by domain or company name..."
+            placeholder="Search domain or company..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-[#162944] border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            style={{
+              width: '100%',
+              padding: '7px 10px 7px 30px',
+              background: C.surface,
+              border: `1px solid rgba(255,255,255,0.08)`,
+              borderRadius: 6,
+              color: C.text,
+              fontSize: 12,
+              fontFamily: F.sans,
+              outline: 'none',
+            }}
           />
         </div>
         <select
           value={vertical}
           onChange={(e) => setVertical(e.target.value)}
-          className="px-4 py-2 bg-[#162944] border border-gray-700 text-white focus:outline-none focus:border-blue-500"
+          style={{
+            padding: '7px 10px',
+            background: C.surface,
+            border: `1px solid rgba(255,255,255,0.08)`,
+            borderRadius: 6,
+            color: C.text2,
+            fontSize: 12,
+            fontFamily: F.sans,
+            outline: 'none',
+            cursor: 'pointer',
+          }}
         >
           <option value="all">All Verticals</option>
           <option value="ABA Therapy">ABA Therapy</option>
           <option value="SaaS">SaaS</option>
+          <option value="Healthcare">Healthcare</option>
+          <option value="Finance">Finance</option>
         </select>
+        <div style={{ marginLeft: 'auto', fontSize: 11, color: C.text3 }}>
+          {filtered.length} records
+        </div>
       </div>
 
       {/* Table */}
-      <div className="bg-[#162944] border border-gray-800">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[#1a3250]">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Domain
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Company
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Vertical
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Employees
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Revenue
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Phone
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Cached
-                </th>
+      <div style={{
+        background: C.surface,
+        border: `1px solid ${C.border}`,
+        borderRadius: 10,
+        padding: 0,
+        overflow: 'hidden',
+      }}>
+        <table style={{
+          width: '100%',
+          borderCollapse: 'collapse',
+          fontSize: 12,
+        }}>
+          <thead>
+            <tr style={{ borderBottom: `1px solid ${C.border}` }}>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Domain
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Company
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Vertical
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Employees
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Revenue
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Phone
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'right',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Cached
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((company, idx) => (
+              <tr
+                key={company.domain}
+                style={{
+                  borderBottom: idx === filtered.length - 1 ? 'none' : `1px solid rgba(255,255,255,0.04)`,
+                }}
+              >
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                  fontFamily: F.mono,
+                  fontSize: 11,
+                }}>
+                  {company.domain}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text,
+                }}>
+                  {company.name}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                }}>
+                  {company.vertical}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                }}>
+                  {company.employees}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                }}>
+                  {company.revenue}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                  fontFamily: F.mono,
+                  fontSize: 11,
+                }}>
+                  {company.phone}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                  fontFamily: F.mono,
+                  fontSize: 11,
+                  textAlign: 'right',
+                }}>
+                  {company.cached_at}
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800">
-              {filtered.map((company) => (
-                <tr key={company.domain} className="hover:bg-[#1a3250]">
-                  <td className="px-6 py-4 text-sm text-blue-400">{company.domain}</td>
-                  <td className="px-6 py-4 text-sm text-white">{company.name}</td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{company.vertical}</td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{company.employees}</td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{company.revenue}</td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{company.phone}</td>
-                  <td className="px-6 py-4 text-sm text-gray-500">{company.cached_at}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

@@ -1,21 +1,25 @@
+"use client";
+
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Database,
-  TrendingUp,
+  ChartBar,
   Upload,
   Play,
   Search
 } from "lucide-react";
+import { C, F } from "@/lib/design-tokens";
 
 const navigation = [
-  { name: "Overview", href: "/", icon: LayoutDashboard },
-  { name: "Database", href: "/database", icon: Database },
-  { name: "Verticals", href: "/verticals", icon: TrendingUp },
-  { name: "Ingestion", href: "/ingestion", icon: Upload },
-  { name: "Operations", href: "/operations", icon: Play },
-  { name: "Research", href: "/research", icon: Search },
+  { name: "Overview", href: "/", icon: LayoutDashboard, section: "monitor" },
+  { name: "Database", href: "/database", icon: Database, section: "monitor" },
+  { name: "Verticals", href: "/verticals", icon: ChartBar, section: "monitor" },
+  { name: "Ingestion", href: "/ingestion", icon: Upload, section: "manage" },
+  { name: "Operations", href: "/operations", icon: Play, section: "manage" },
+  { name: "Research", href: "/research", icon: Search, section: "manage" },
 ];
 
 export default function DashboardLayout({
@@ -23,35 +27,135 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+
   return (
-    <div className="flex h-screen bg-[#0a1628]">
+    <div style={{ display: 'flex', height: '100vh', background: C.bg }}>
       {/* Sidebar */}
-      <aside className="w-64 bg-[#162944] border-r border-gray-800">
-        <div className="p-6">
-          <h1 className="text-xl font-bold text-white">Refyne Data</h1>
-          <p className="text-sm text-gray-400 mt-1">Internal Ops</p>
+      <aside style={{
+        width: 176,
+        background: C.sidebar,
+        borderRight: `1px solid ${C.border}`,
+        display: 'flex',
+        flexDirection: 'column',
+        flexShrink: 0,
+      }}>
+        <div style={{
+          padding: 16,
+          borderBottom: `1px solid ${C.border}`,
+        }}>
+          <div style={{
+            fontSize: 14,
+            fontWeight: 600,
+            color: C.text,
+            letterSpacing: '-0.3px',
+          }}>
+            Refyne <span style={{ color: C.indigo }}>Data</span>
+          </div>
+          <div style={{
+            fontSize: 10,
+            color: C.text3,
+            marginTop: 2,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+          }}>
+            Internal Ops
+          </div>
         </div>
 
-        <nav className="px-4 space-y-1">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-[#1a3250] hover:text-white transition-colors"
-            >
-              <item.icon className="w-5 h-5" />
-              {item.name}
-            </Link>
-          ))}
+        <nav style={{ padding: '12px 8px', flex: 1 }}>
+          {/* Monitor Section */}
+          <div style={{
+            fontSize: 10,
+            fontWeight: 600,
+            color: C.text3,
+            textTransform: 'uppercase',
+            letterSpacing: '0.6px',
+            padding: '0 8px',
+            marginBottom: 4,
+          }}>
+            Monitor
+          </div>
+          {navigation.filter(item => item.section === 'monitor').map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '7px 8px',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  color: isActive ? C.indigoLt : C.text2,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  transition: 'all 0.1s',
+                  marginBottom: 1,
+                  background: isActive ? C.indigoDim : 'transparent',
+                  textDecoration: 'none',
+                }}
+              >
+                <Icon style={{ fontSize: 15, width: 15, height: 15 }} />
+                {item.name}
+              </Link>
+            );
+          })}
+
+          <div style={{ height: 12 }} />
+
+          {/* Manage Section */}
+          <div style={{
+            fontSize: 10,
+            fontWeight: 600,
+            color: C.text3,
+            textTransform: 'uppercase',
+            letterSpacing: '0.6px',
+            padding: '0 8px',
+            marginBottom: 4,
+          }}>
+            Manage
+          </div>
+          {navigation.filter(item => item.section === 'manage').map((item) => {
+            const Icon = item.icon;
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.name}
+                href={item.href}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  padding: '7px 8px',
+                  borderRadius: 6,
+                  cursor: 'pointer',
+                  color: isActive ? C.indigoLt : C.text2,
+                  fontSize: 12,
+                  fontWeight: 500,
+                  transition: 'all 0.1s',
+                  marginBottom: 1,
+                  background: isActive ? C.indigoDim : 'transparent',
+                  textDecoration: 'none',
+                }}
+              >
+                <Icon style={{ fontSize: 15, width: 15, height: 15 }} />
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="absolute bottom-6 left-4">
+        <div style={{ position: 'absolute', bottom: 24, left: 16 }}>
           <UserButton />
         </div>
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto">
+      <main style={{ flex: 1, overflow: 'auto' }}>
         {children}
       </main>
     </div>

@@ -1,3 +1,6 @@
+import { ArrowUpRight, AlertTriangle } from "lucide-react";
+import { C, F } from "@/lib/design-tokens";
+
 export default function VerticalsPage() {
   const verticals = [
     {
@@ -5,96 +8,244 @@ export default function VerticalsPage() {
       cached: 26834,
       total: 47821,
       percentage: 56,
-      color: "bg-green-500",
+      color: C.indigo,
     },
     {
       name: "Healthcare",
       cached: 9564,
       total: 47821,
       percentage: 20,
-      color: "bg-blue-500",
+      color: C.indigo,
     },
     {
       name: "Education",
       cached: 5739,
       total: 47821,
       percentage: 12,
-      color: "bg-purple-500",
+      color: C.indigo,
     },
     {
       name: "SaaS",
       cached: 1913,
       total: 47821,
       percentage: 4,
-      color: "bg-orange-500",
+      color: C.indigo,
     },
     {
       name: "Finance",
       cached: 1435,
       total: 47821,
       percentage: 3,
-      color: "bg-yellow-500",
+      color: C.amber,
     },
     {
       name: "Other",
       cached: 2336,
       total: 47821,
       percentage: 5,
-      color: "bg-gray-500",
+      color: C.text3,
     },
   ];
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Verticals</h1>
-        <p className="text-gray-400 mt-2">
-          Coverage breakdown by industry vertical
+    <div style={{ padding: 24, maxWidth: 1200, margin: '0 auto' }}>
+      {/* Page Header */}
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{
+          fontSize: 20,
+          fontWeight: 600,
+          color: C.text,
+          marginBottom: 8,
+        }}>
+          Verticals
+        </h1>
+        <p style={{
+          fontSize: 13,
+          color: C.text2,
+        }}>
+          Coverage breakdown by industry
         </p>
       </div>
 
-      {/* Stats Summary */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
-        <div className="bg-[#162944] border border-gray-800 p-6">
-          <p className="text-sm text-gray-400 mb-2">Total Verticals</p>
-          <p className="text-3xl font-bold text-white">{verticals.length}</p>
+      {/* Stats Grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, 1fr)',
+        gap: 12,
+        marginBottom: 20,
+      }}>
+        <div style={{
+          background: C.surface,
+          border: `1px solid ${C.border}`,
+          borderRadius: 10,
+          padding: '14px 16px',
+        }}>
+          <div style={{
+            fontSize: 11,
+            fontWeight: 500,
+            color: C.text3,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            marginBottom: 8,
+          }}>
+            Total Verticals
+          </div>
+          <div style={{
+            fontSize: 22,
+            fontWeight: 600,
+            color: C.text,
+            letterSpacing: '-0.5px',
+            marginBottom: 4,
+          }}>
+            {verticals.length}
+          </div>
+          <div style={{
+            fontSize: 11,
+            color: C.text2,
+          }}>
+            Configured
+          </div>
         </div>
-        <div className="bg-[#162944] border border-gray-800 p-6">
-          <p className="text-sm text-gray-400 mb-2">Best Coverage</p>
-          <p className="text-3xl font-bold text-white">ABA Therapy</p>
-          <p className="text-sm text-green-400 mt-1">56% cached</p>
+
+        <div style={{
+          background: C.surface,
+          border: `1px solid ${C.border}`,
+          borderRadius: 10,
+          padding: '14px 16px',
+        }}>
+          <div style={{
+            fontSize: 11,
+            fontWeight: 500,
+            color: C.text3,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            marginBottom: 8,
+          }}>
+            Best Coverage
+          </div>
+          <div style={{
+            fontSize: 16,
+            fontWeight: 600,
+            color: C.text,
+            letterSpacing: '-0.5px',
+            paddingTop: 3,
+            marginBottom: 4,
+          }}>
+            ABA Therapy
+          </div>
+          <div style={{
+            fontSize: 11,
+            color: C.green,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 3,
+          }}>
+            <ArrowUpRight style={{ width: 12, height: 12 }} />
+            56% cached
+          </div>
         </div>
-        <div className="bg-[#162944] border border-gray-800 p-6">
-          <p className="text-sm text-gray-400 mb-2">Needs Improvement</p>
-          <p className="text-3xl font-bold text-white">Finance</p>
-          <p className="text-sm text-yellow-400 mt-1">3% cached</p>
+
+        <div style={{
+          background: C.surface,
+          border: `1px solid ${C.border}`,
+          borderRadius: 10,
+          padding: '14px 16px',
+        }}>
+          <div style={{
+            fontSize: 11,
+            fontWeight: 500,
+            color: C.text3,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            marginBottom: 8,
+          }}>
+            Needs Improvement
+          </div>
+          <div style={{
+            fontSize: 16,
+            fontWeight: 600,
+            color: C.text,
+            letterSpacing: '-0.5px',
+            paddingTop: 3,
+            marginBottom: 4,
+          }}>
+            Finance
+          </div>
+          <div style={{
+            fontSize: 11,
+            color: C.amber,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 3,
+          }}>
+            <AlertTriangle style={{ width: 12, height: 12 }} />
+            3% cached
+          </div>
         </div>
       </div>
 
-      {/* Vertical Breakdown */}
-      <div className="bg-[#162944] border border-gray-800 p-6">
-        <h2 className="text-lg font-semibold text-white mb-6">
-          Coverage by Vertical
-        </h2>
-        <div className="space-y-6">
+      {/* Vertical Breakdown Card */}
+      <div style={{
+        background: C.surface,
+        border: `1px solid ${C.border}`,
+        borderRadius: 10,
+        padding: 16,
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 12,
+        }}>
+          <span style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: C.text,
+          }}>
+            Coverage by Vertical
+          </span>
+          <span style={{ fontSize: 11, color: C.text3 }}>
+            47,821 total companies
+          </span>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {verticals.map((vertical) => (
             <div key={vertical.name}>
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="text-sm font-medium text-white">{vertical.name}</p>
-                  <p className="text-xs text-gray-500">
-                    {vertical.cached.toLocaleString()} of {vertical.total.toLocaleString()} companies
-                  </p>
-                </div>
-                <span className="text-lg font-bold text-white">
-                  {vertical.percentage}%
+              <div style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginBottom: 6,
+              }}>
+                <span style={{
+                  fontSize: 12,
+                  fontWeight: 500,
+                  color: C.text,
+                }}>
+                  {vertical.name}
+                </span>
+                <span style={{ fontSize: 11, color: C.text2 }}>
+                  {vertical.cached.toLocaleString()} companies{' '}
+                  <span style={{
+                    color: vertical.name === 'Finance' ? C.amber : C.indigo,
+                    fontWeight: 600,
+                  }}>
+                    {vertical.percentage}%
+                  </span>
                 </span>
               </div>
-              <div className="w-full bg-gray-800 h-3">
-                <div
-                  className={`h-3 ${vertical.color} transition-all duration-500`}
-                  style={{ width: `${vertical.percentage}%` }}
-                />
+              <div style={{
+                height: 7,
+                background: 'rgba(255,255,255,0.05)',
+                borderRadius: 3,
+                overflow: 'hidden',
+              }}>
+                <div style={{
+                  height: '100%',
+                  width: `${vertical.percentage}%`,
+                  background: vertical.color,
+                  borderRadius: 3,
+                }} />
               </div>
             </div>
           ))}

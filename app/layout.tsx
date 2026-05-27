@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import "./globals.css";
+import { C, F } from "@/lib/design-tokens";
+
+const plusJakarta = Plus_Jakarta_Sans({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: "Refyne Data Platform",
@@ -15,7 +19,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className="bg-[#0a1628] text-gray-100 antialiased">
+        <body className={plusJakarta.className} style={{
+          background: C.bg,
+          color: C.text,
+          fontFamily: F.sans,
+          margin: 0,
+          padding: 0,
+        }}>
           {children}
         </body>
       </html>

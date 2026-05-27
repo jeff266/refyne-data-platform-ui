@@ -1,27 +1,30 @@
+import { ArrowUpRight } from "lucide-react";
+import { C, F } from "@/lib/design-tokens";
+
 export default function OverviewPage() {
   const stats = [
     {
       label: "Total Companies",
       value: "47,821",
-      change: "+2,341 this week",
+      delta: "+2,341 this week",
       trend: "up",
     },
     {
       label: "Hit Rate",
       value: "71%",
-      change: "+3% from last month",
+      delta: "+3% from last month",
       trend: "up",
     },
     {
       label: "Cost Saved",
-      value: "$127,438",
-      change: "vs GraphIQ pricing",
+      value: "$127K",
+      delta: "vs GraphIQ pricing",
       trend: "neutral",
     },
     {
-      label: "Avg Response Time",
+      label: "Avg Response",
       value: "1.2s",
-      change: "Serper + DeepSeek",
+      delta: "Serper + DeepSeek",
       trend: "neutral",
     },
   ];
@@ -35,73 +38,213 @@ export default function OverviewPage() {
   ];
 
   return (
-    <div className="p-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white">Overview</h1>
-        <p className="text-gray-400 mt-2">
+    <div style={{ padding: 24, maxWidth: 1200, margin: '0 auto' }}>
+      {/* Page Header */}
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{
+          fontSize: 20,
+          fontWeight: 600,
+          color: C.text,
+          marginBottom: 8,
+        }}>
+          Overview
+        </h1>
+        <p style={{
+          fontSize: 13,
+          color: C.text2,
+        }}>
           Refyne Search platform metrics and activity
         </p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-4 gap-6 mb-8">
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: 12,
+        marginBottom: 20,
+      }}>
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-[#162944] border border-gray-800 p-6"
+            style={{
+              background: C.surface,
+              border: `1px solid ${C.border}`,
+              borderRadius: 10,
+              padding: '14px 16px',
+            }}
           >
-            <p className="text-sm text-gray-400 mb-2">{stat.label}</p>
-            <p className="text-3xl font-bold text-white mb-1">{stat.value}</p>
-            <p className="text-sm text-gray-500">{stat.change}</p>
+            <div style={{
+              fontSize: 11,
+              fontWeight: 500,
+              color: C.text3,
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px',
+              marginBottom: 8,
+            }}>
+              {stat.label}
+            </div>
+            <div style={{
+              fontSize: 22,
+              fontWeight: 600,
+              color: C.text,
+              letterSpacing: '-0.5px',
+              marginBottom: 4,
+            }}>
+              {stat.value}
+            </div>
+            <div style={{
+              fontSize: 11,
+              color: stat.trend === 'up' ? C.green : C.text2,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 3,
+            }}>
+              {stat.trend === 'up' && <ArrowUpRight style={{ width: 12, height: 12 }} />}
+              {stat.delta}
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Recent Activity */}
-      <div className="bg-[#162944] border border-gray-800">
-        <div className="px-6 py-4 border-b border-gray-800">
-          <h2 className="text-lg font-semibold text-white">Recent Activity</h2>
+      {/* Recent Activity Card */}
+      <div style={{
+        background: C.surface,
+        border: `1px solid ${C.border}`,
+        borderRadius: 10,
+        padding: 16,
+      }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 14,
+        }}>
+          <span style={{
+            fontSize: 13,
+            fontWeight: 600,
+            color: C.text,
+          }}>
+            Recent Activity
+          </span>
+          <span style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 4,
+            padding: '2px 7px',
+            background: C.indigoDim,
+            color: C.indigoLt,
+            borderRadius: 4,
+            fontSize: 10,
+            fontWeight: 600,
+            border: `1px solid ${C.indigoBrd}`,
+          }}>
+            Live
+          </span>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-[#1a3250]">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Domain
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Vertical
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Status
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase">
-                  Fields
-                </th>
+
+        <table style={{
+          width: '100%',
+          borderCollapse: 'collapse',
+          fontSize: 12,
+        }}>
+          <thead>
+            <tr style={{ borderBottom: `1px solid ${C.border}` }}>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Domain
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Vertical
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'left',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Status
+              </th>
+              <th style={{
+                padding: '8px 10px',
+                textAlign: 'right',
+                fontSize: 10,
+                fontWeight: 600,
+                color: C.text3,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+              }}>
+                Fields
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentActivity.map((item, idx) => (
+              <tr
+                key={idx}
+                style={{
+                  borderBottom: idx === recentActivity.length - 1 ? 'none' : `1px solid rgba(255,255,255,0.04)`,
+                }}
+              >
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                  fontFamily: F.mono,
+                  fontSize: 11,
+                }}>
+                  {item.domain}
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                }}>
+                  {item.vertical}
+                </td>
+                <td style={{ padding: '9px 10px' }}>
+                  <span style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 4,
+                    padding: '2px 7px',
+                    borderRadius: 4,
+                    fontSize: 10,
+                    fontWeight: 600,
+                    background: item.status === 'enriched' ? C.greenDim : C.indigoDim,
+                    color: item.status === 'enriched' ? C.green : C.indigoLt,
+                    border: `1px solid ${item.status === 'enriched' ? C.greenBrd : C.indigoBrd}`,
+                  }}>
+                    {item.status}
+                  </span>
+                </td>
+                <td style={{
+                  padding: '9px 10px',
+                  color: C.text2,
+                  textAlign: 'right',
+                }}>
+                  {item.fields}
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-800">
-              {recentActivity.map((item, idx) => (
-                <tr key={idx} className="hover:bg-[#1a3250]">
-                  <td className="px-6 py-4 text-sm text-white">{item.domain}</td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{item.vertical}</td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-flex px-2 py-1 text-xs font-medium ${
-                        item.status === "enriched"
-                          ? "bg-green-900/30 text-green-400"
-                          : "bg-blue-900/30 text-blue-400"
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-300">{item.fields}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

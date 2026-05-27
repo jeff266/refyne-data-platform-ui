@@ -1,6 +1,5 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -149,8 +148,23 @@ export default function DashboardLayout({
           })}
         </nav>
 
-        <div style={{ position: 'absolute', bottom: 24, left: 16 }}>
-          <UserButton />
+        <div style={{
+          position: 'absolute',
+          bottom: 16,
+          left: 16,
+          fontSize: 10,
+          color: C.text3,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+        }}>
+          <div style={{
+            width: 6,
+            height: 6,
+            borderRadius: '50%',
+            background: C.green || '#22c55e',
+          }} />
+          Authenticated
         </div>
       </aside>
 

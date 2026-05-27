@@ -1,12 +1,10 @@
-import { auth } from '@clerk/nextjs/server'
+import { requireAuth } from '@/lib/auth/simple-auth'
 import { supabaseAdmin } from '@/lib/supabase/admin-client'
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(request: Request) {
-  const { userId } = await auth()
-  if (!userId) {
-    return new NextResponse('Unauthorized', { status: 401 })
-  }
+export async function GET(request: NextRequest) {
+  const authError = await requireAuth(request)
+  if (authError) return authError
 
   const { searchParams } = new URL(request.url)
   const domain = searchParams.get('domain')?.trim().toLowerCase()
